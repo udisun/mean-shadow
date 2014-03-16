@@ -12,5 +12,16 @@
     "mean-shadow"
   ],
   "author": "Orit Persik",
-  "license": "BSD-2-Clause"
+  "license": "BSD-2-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/udisun/mean-shadow.git"
+  },
+  "bugs": {
+    "url": "https://github.com/udisun/mean-shadow/issues"
+  },
+  "homepage": "https://github.com/udisun/mean-shadow"
+  "dependencies": {
+    "lodash": "2.4.1"
+  }
 }
