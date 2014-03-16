@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/udisun/mean-shadow/issues"
   },
-  "homepage": "https://github.com/udisun/mean-shadow"
+  "homepage": "https://github.com/udisun/mean-shadow",
   "dependencies": {
     "lodash": "2.4.1"
   }
