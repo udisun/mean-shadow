@@ -9,9 +9,13 @@ You can find it and all the details regarding it in:
 http://www.mean.io/
 
 After installing this module you should require it by doing:
+```JavaScript
 var meanShadow = require('../node_modules/mean-shadow')(app, auth);
+```
 
 Then in order to add your own logic you can catch a shadow event by doing:
+```JavaScript
 meanShadow.events.on('insert', function(data) {
   // Do some cool and MEAN stuff
 });
+```
