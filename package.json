@@ -1,0 +1,16 @@
+{
+  "name": "mean-shadow",
+  "version": "0.0.1",
+  "description": "Allows any mean app to have endpoints to add/remove entities from any third party app",
+  "main": "mean-shadow.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mean",
+    "mean.io",
+    "mean-shadow"
+  ],
+  "author": "Orit Persik",
+  "license": "BSD-2-Clause"
+}
