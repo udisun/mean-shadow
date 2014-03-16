@@ -19,3 +19,5 @@ meanShadow.events.on('insert', function(data) {
   // Do some cool and MEAN stuff
 });
 ```
+
+Thanks to the author Orit Persik for creating this.
