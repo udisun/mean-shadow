@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 
 var collections = {};
 
-module.exports = function (app, auth) {
+module.exports = function (app, options) {
     var meanShadow = {
         events: shadowEvents,
         insert: function (req, res) {
@@ -78,8 +78,26 @@ module.exports = function (app, auth) {
         }
     };
 
-    app.post('/insert/:type/:id/:val', auth.hasAuthorization, meanShadow.insert);
-    app.del('/delete/:type/:id/:val', auth.hasAuthorization, meanShadow.remove);
+    if (options) {
+      if (options.disableAuth) {
+        app.post('/insert/:type/:id/:val', meanShadow.insert);
+        app.del('/delete/:type/:id/:val', meanShadow.remove);
+      }
+      else if (options.authMiddleware) {
+        app.post('/insert/:type/:id/:val', options.authMiddleware, meanShadow.insert);
+        app.del('/delete/:type/:id/:val', options.authMiddleware, meanShadow.remove);
+      }
+      else {
+	console.log("****************************************");
+        console.log("**                                    **");
+        console.log("**              WARNING               **");
+        console.log("**      Authorization is disabled     **");
+        console.log("** Make sure to pass auth middleware  **");
+        console.log("**     When you require mean-shadow   **");
+        console.log("**                                    **");
+        console.log("****************************************");
+      }
+    }
 
     return meanShadow;
 };

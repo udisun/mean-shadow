@@ -10,8 +10,14 @@ http://www.mean.io/
 
 After installing this module you should require it by doing:
 ```JavaScript
-var meanShadow = require('../node_modules/mean-shadow')(app, auth);
+var options = {
+  disableAuth: false,
+  authMiddleware: auth.myNewAuthMiddleware
+};
+var meanShadow = require('../node_modules/mean-shadow')(app, options);
 ```
+The options object should include "authMiddleware" which is a new middleware you should create inside of the config/middlewares/authorization.js file.
+If you need to disable the authorization which is a BAD IDEA, just pass "disableAuth: true".
 
 Then in order to add your own logic you can catch a shadow event by doing:
 ```JavaScript
