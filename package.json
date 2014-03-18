@@ -1,6 +1,6 @@
 {
   "name": "mean-shadow",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Allows any mean app to have endpoints to add/remove entities from any third party app",
   "main": "mean-shadow.js",
   "scripts": {
