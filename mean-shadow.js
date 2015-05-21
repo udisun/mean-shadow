@@ -74,6 +74,7 @@ module.exports = function (app, options) {
                 shadowEvents.emit('remove', {
                     data: query
                 });
+                res.send("Delete");
             });
         }
     };
