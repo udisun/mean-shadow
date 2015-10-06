@@ -11,9 +11,8 @@ module.exports = function (app, options) {
         events: shadowEvents,
         insert: function (req, res) {
             var name = req.params.type;
-            var query = {};
-            query[req.params.id] = req.params.val;
-
+            var query = req.mongoQuery;
+            
             var Collection = getCollection(name);
 
             Collection.findOne(query, function (err, doc) {
@@ -62,8 +61,7 @@ module.exports = function (app, options) {
 
         remove: function (req, res) {
             var name = req.params.type;
-            var query = {};
-            query[req.params.id] = req.params.val;
+            var query = req.mongoQuery;
 
             var Collection = getCollection(name);
             Collection.remove(query, function (err) {
@@ -76,20 +74,32 @@ module.exports = function (app, options) {
                 });
                 res.send("Delete");
             });
+        },
+
+        checkIds: function(req, res, next) {
+            req.mongoQuery = {};
+            var obj = {};
+            var paramsID = req.params.id;
+            var keyIDParams = paramsID.split("+");
+            
+            for (var i = 0; i < keyIDParams.length; i++) { 
+                req.mongoQuery[keyIDParams[i]] = req.body[keyIDParams[i]];
+            }
+            next();
         }
     };
 
     if (options) {
       if (options.disableAuth) {
-        app.post('/insert/:type/:id/:val', meanShadow.insert);
-        app.del('/delete/:type/:id/:val', meanShadow.remove);
+        app.post('/insert/:type/:id/:val', meanShadow.checkIds,  meanShadow.insert);
+        app.del('/delete/:type/:id/:val', meanShadow.checkIds, meanShadow.remove);
       }
       else if (options.authMiddleware) {
-        app.post('/insert/:type/:id/:val', options.authMiddleware, meanShadow.insert);
-        app.del('/delete/:type/:id/:val', options.authMiddleware, meanShadow.remove);
+        app.post('/insert/:type/:id/:val', options.authMiddleware, meanShadow.checkIds, meanShadow.insert);
+        app.del('/delete/:type/:id/:val', options.authMiddleware, meanShadow.checkIds, meanShadow.remove);
       }
       else {
-	console.log("****************************************");
+        console.log("****************************************");
         console.log("**                                    **");
         console.log("**              WARNING               **");
         console.log("**      Authorization is disabled     **");
